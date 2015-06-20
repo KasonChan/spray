@@ -24,7 +24,7 @@ class ServiceActor extends Actor with Service {
 // This trait defines the service behavior independently from the service actor
 trait Service extends HttpService {
 
-  val route =
+  val route = {
     path("") {
       get {
         respondWithMediaType(`text/html`) {
@@ -44,6 +44,27 @@ trait Service extends HttpService {
           }
         }
       }
+    } ~ path("hello") {
+      get {
+        respondWithMediaType(`text/html`) {
+          // XML is marshalled to `text/xml` by default, so we simply override
+          // here
+          complete {
+            "Hello"
+          }
+        }
+      }
+    } ~ path("world") {
+      get {
+        respondWithMediaType(`text/html`) {
+          // XML is marshalled to `text/xml` by default, so we simply override
+          // here
+          complete {
+            "World"
+          }
+        }
+      }
     }
+  }
 
 }
